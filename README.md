@@ -1,4 +1,4 @@
-Cold Email Generator with RAG & Analytics
+VoltMail: Cold Email Generator with RAG & Analytics
 This project is an advanced Cold Email Generator designed to create highly personalized cold emails using Retrieval-Augmented Generation (RAG), powered by large language models and a robust analytics dashboard. It leverages a modern tech stack including Groq (LLaMA3) for fast inference, ChromaDB for vector storage, Cohere for embeddings, MongoDB for data persistence, and a Streamlit frontend for an intuitive user experience.
 
 Features
@@ -81,7 +81,7 @@ Follow these steps to set up and run the project locally.
 Prerequisites
 Node.js (LTS version recommended)
 
-Python 3.0+
+Python 3.9+
 
 MongoDB (local installation or cloud-hosted instance)
 
@@ -184,3 +184,7 @@ Push to the branch (git push origin feature/your-feature-name).
 
 Open a Pull Request.
 
+License
+MIT License
+
+Note: This README assumes basic familiarity with Node.js, Python, MongoDB, and Git. For detailed setup of specific APIs (like Gmail API for sending emails), refer to their official documentation.
