@@ -4,7 +4,7 @@
 
 VoltMail is an advanced cold email platform that combines Retrieval-Augmented Generation (RAG) with comprehensive analytics to create highly personalized outreach campaigns at scale.
 
-## ✨ Key Features
+##  Key Features
 
 - **AI-Powered Personalization**: Generate tailored emails using RAG with LLaMA3
 - **Lightning Fast Inference**: Groq integration for real-time email generation
@@ -13,7 +13,7 @@ VoltMail is an advanced cold email platform that combines Retrieval-Augmented Ge
 - **Comprehensive Analytics**: Track opens, replies, and engagement metrics
 - **Multi-Channel Outreach**: Supports email and LinkedIn integration
 
-## 🚀 Technology Stack
+##  Technology Stack
 
 **Backend**:
 - Node.js + Express.js
@@ -64,7 +64,7 @@ Initialize vectorstore
 
 bash
 python -m scripts.init_vectorstore
-🏃 Running the Application
+ Running the Application
 Start backend service
 
 bash
@@ -80,4 +80,3 @@ streamlit run app.py
 📊 Analytics Metrics Tracked
 Open rates (via pixel tracking)
 
-R
