@@ -1,19 +1,40 @@
 import streamlit as st
 import requests
-
-st.title("📊 Email Analytics Dashboard")
-
+from datetime import datetime
+st.set_page_config(page_title="VoltMail History", layout="wide")
+st.title(" Sent Email History")
+if st.button("🔄 Refresh"):
+    st.rerun()
 try:
     res = requests.get("http://localhost:5000/api/email-logs")
-    logs = res.json().get("logs", [])
-
-    if not logs:
-        st.warning("No email logs found.")
+    logs = res.json()
+    if not isinstance(logs, list):
+        st.error(" Invalid response from backend.")
+    elif not logs:
+        st.info("No emails sent yet.")
     else:
         for entry in logs:
+            recipient = entry.get('recipientEmail', 'N/A')
+            subject = entry.get('subject', 'No Subject')
+            company = entry.get('company', 'Unknown')
+            role = entry.get('role', 'Unknown')
+            product = entry.get('product', 'Unknown')
+            timestamp = entry.get('timestamp')
+            body = entry.get('body', '')
+            time_display = "Unknown"
+            if timestamp:
+                try:
+                    dt = datetime.strptime(timestamp, "%Y-%m-%dT%H:%M:%S.%fZ")
+                    time_display = dt.strftime("%d %b %Y, %I:%M %p")
+                except:
+                    time_display = timestamp
+            st.markdown(f"### 📧 {subject}")
+            st.markdown(f"- **To:** `{recipient}`")
+            st.markdown(f"- **Company:** {company}")
+            st.markdown(f"- **Role:** {role}")
+            st.markdown(f"- **Product:** {product}")
+            st.markdown(f"- **Sent At:** {time_display}")
+            st.text_area("Body", body, height=150, disabled=True)
             st.markdown("---")
-            st.markdown(f"**To:** {entry.get('name')} at {entry.get('company')}")
-            st.markdown(f"**Role:** {entry.get('role')} | **Product:** {entry.get('product')}")
-            st.text_area("Generated Email", entry.get("email"), height=200)
 except Exception as e:
-    st.error(f"Failed to load logs: {e}")
+    st.error(f"❌ Could not fetch email logs: {e}")

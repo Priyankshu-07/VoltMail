@@ -1,72 +1,35 @@
 const nodemailer = require('nodemailer');
-
-async function sendEmail(recipientEmail, subject, body) {
+async function sendEmail(email, subject, message) {
   try {
-    // Input validation
-    if (!recipientEmail || !subject || !body) {
-      throw new Error('Missing required parameters: recipientEmail, subject, and body are required');
+    if (!email || !subject || !message) {
+      throw new Error('Please provide email, subject, and message');
     }
-
-    // Validate email format
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(recipientEmail)) {
-      throw new Error('Invalid recipient email format');
+    if (!email.includes('@')) {
+      throw new Error('Please enter a valid email address');
     }
-
-    // Check for required environment variables
     if (!process.env.SENDER_EMAIL || !process.env.SENDER_PASS) {
-      throw new Error('Missing environment variables: SENDER_EMAIL and SENDER_PASS must be set');
+      throw new Error('Email credentials not configured');
     }
-
-    // Create transporter with improved configuration
     const transporter = nodemailer.createTransporter({
       service: 'gmail',
       auth: {
         user: process.env.SENDER_EMAIL,
-        pass: process.env.SENDER_PASS  // Gmail App Password
-      },
-      // Additional security options
-      secure: true,
-      tls: {
-        rejectUnauthorized: false
+        pass: process.env.SENDER_PASS
       }
     });
-
-    // Verify transporter configuration
     await transporter.verify();
-
-    const mailOptions = {
+    const emailOptions = {
       from: process.env.SENDER_EMAIL,
-      to: recipientEmail,
+      to: email,
       subject: subject,
-      text: body,
-      // Optional: Add HTML version
-      html: `<p>${body.replace(/\n/g, '<br>')}</p>`
+      text: message
     };
-
-    const info = await transporter.sendMail(mailOptions);
-    console.log("📬 Email sent successfully:", info.response);
-    console.log("📧 Message ID:", info.messageId);
-    
-    return {
-      success: true,
-      messageId: info.messageId,
-      response: info.response
-    };
-
+    const result = await transporter.sendMail(emailOptions);   
+    console.log('Email sent successfully!');
+    return { success: true, id: result.messageId };
   } catch (error) {
-    console.error("❌ Email sending failed:", error.message);
-    
-    // Return error info instead of throwing (optional approach)
-    return {
-      success: false,
-      error: error.message,
-      code: error.code || 'UNKNOWN_ERROR'
-    };
-    
-    // Alternative: Re-throw the error for caller to handle
-    // throw error;
+    console.log('Failed to send email:', error.message);
+    return { success: false, error: error.message };
   }
 }
-
 module.exports = sendEmail;

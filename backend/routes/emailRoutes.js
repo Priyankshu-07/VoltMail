@@ -1,5 +1,6 @@
 const express = require('express');
-const handleEmailSend = require('../controllers/emailController.js'); 
+const { handleEmailSend, getEmailLogs } = require('../controllers/emailController.js');
 const router = express.Router();
-router.post('/send', handleEmailSend); 
+router.post('/send', handleEmailSend);      
+router.get('/email-logs', getEmailLogs);   
 module.exports = router;

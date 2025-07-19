@@ -1,27 +1,35 @@
 import streamlit as st
-
-# Page configuration
 st.set_page_config(
     page_title="VoltMail",
     page_icon="⚡",
     layout="wide",
     initial_sidebar_state="expanded"
 )
-
-# Sidebar
-st.sidebar.title("VoltMail ⚡")
-st.sidebar.markdown("## Navigation")
-st.sidebar.markdown("""
-- 🏠 Home  
-- ✍️ VoltMail  
-- 📊 Dashboard
-""")
+st.sidebar.title("⚡ VoltMail")
+st.sidebar.markdown("###  Navigation")
 st.sidebar.markdown("---")
-st.sidebar.markdown("Cold email generator powered by AI, ChromaDB, and Groq.")
-
-# Main welcome screen
+st.sidebar.markdown(" *Cold email generator powered by AI, ChromaDB & Groq.*")
 st.markdown("""
-    <h1 style='text-align: center;'>⚡ VoltMail</h1>
-    <h3 style='text-align: center;'>AI-Powered Cold Email Generator</h3>
-    <p style='text-align: center;'>Use the sidebar to start generating emails or view analytics.</p>
+    <style>
+        .centered-title {
+            text-align: center;
+            font-size: 3rem;
+            color: #1a73e8;
+        }
+        .centered-subtitle {
+            text-align: center;
+            font-size: 1.5rem;
+            color: #333333;
+        }
+        .centered-desc {
+            text-align: center;
+            font-size: 1rem;
+            color: #555;
+            margin-top: 10px;
+        }
+    </style>
+
+    <h1 class="centered-title">⚡ VoltMail</h1>
+    <h3 class="centered-subtitle">AI-Powered Cold Email Generator</h3>
+    <p class="centered-desc">Use the sidebar to start generating emails or explore your email analytics.</p>
 """, unsafe_allow_html=True)
