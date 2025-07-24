@@ -198,7 +198,6 @@ st.markdown("""
     </div>
 </div>
 """, unsafe_allow_html=True)
-
 st.markdown("""
 <div class="tech-stack">
     <h3 style="color: #2d3748; margin-bottom: 1.5rem;">Built with Modern Technology</h3>
@@ -210,8 +209,6 @@ st.markdown("""
     <span class="tech-item">LangChain</span>
 </div>
 """, unsafe_allow_html=True)
-
-# Call to Action
 st.markdown("""
 <div class="cta-section">
     <h2 style="margin-bottom: 1rem;">Ready to Get Started?</h2>
