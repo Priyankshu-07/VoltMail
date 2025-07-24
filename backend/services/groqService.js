@@ -27,7 +27,7 @@ function callGroqAPI(prompt) {
         resolve(message);
       })
       .catch((error) => {
-        console.error('❌ Groq API Error:', error.response ? error.response.data : error.message);
+        console.error(' Groq API Error:', error.response ? error.response.data : error.message);
         reject(new Error('Failed to get email from Groq'));
       });
   });
