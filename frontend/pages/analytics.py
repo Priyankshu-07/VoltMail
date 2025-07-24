@@ -37,4 +37,4 @@ try:
             st.text_area("Body", body, height=150, disabled=True)
             st.markdown("---")
 except Exception as e:
-    st.error(f"❌ Could not fetch email logs: {e}")
+    st.error(f" Could not fetch email logs: {e}")
