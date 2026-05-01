@@ -1,0 +1,45 @@
+version: '3.8'
+
+services:
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: voltmail_backend
+    restart: always
+    ports:
+      - "5000:5000"
+    env_file:
+      - ./backend/.env
+    dns:
+      - 8.8.8.8
+      - 8.8.4.4
+    networks:
+      - voltmail_network
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: voltmail_frontend
+    restart: always
+    ports:
+      - "8501:8501"
+    env_file:
+      - ./frontend/.env
+    environment:
+      - BACKEND_URL=http://backend:5000
+    volumes:
+      - ./frontend/vectorstore:/app/vectorstore
+    depends_on:
+      - backend
+    dns:
+      - 8.8.8.8
+      - 8.8.4.4
+    networks:
+      - voltmail_network
+
+networks:
+  voltmail_network:
+    driver: bridge
