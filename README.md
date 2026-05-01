@@ -31,7 +31,7 @@ VoltMail is an advanced cold email platform that combines Retrieval-Augmented Ge
 - Custom prompt engineering
 
 
-## 🛠️ Installation
+##  Installation
 
 ### Prerequisites
 - Node.js v18+
