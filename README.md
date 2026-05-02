@@ -1,82 +1,116 @@
+Overview
+VoltMail is an advanced cold email platform that combines Retrieval-Augmented Generation (RAG) with comprehensive analytics to craft highly personalized outreach at scale. It leverages LLaMA3 via Groq for lightning-fast inference, ChromaDB for smart context retrieval, and a clean Streamlit dashboard for campaign management.
 
-# VoltMail: AI-Powered Cold Email Generator
+Features
+FeatureDescription AI PersonalizationRAG-powered email generation using LLaMA3 Lightning InferenceGroq integration for real-time generation Smart RetrievalChromaDB vector store with Cohere embeddings Campaign AnalyticsTrack opens, replies, and engagement metrics Campaign ManagementCreate and manage multiple outreach campaigns Multi-ChannelSupports email and LinkedIn outreach
 
+Tech Stack
+┌─────────────────────────────────────────────────────┐
+│                      VoltMail                       │
+├──────────────────────┬──────────────────────────────┤
+│      Backend         │         Frontend             │
+│  Node.js + Express   │       Streamlit              │
+│  MongoDB             │       Plotly                 │
+│  Groq API (LLaMA3)   ├──────────────────────────────┤
+│  Cohere Embeddings   │          AI / ML             │
+│                      │  LangChain (RAG)             │
+│                      │  ChromaDB (Vector Store)     │
+│                      │  Custom Prompt Engineering   │
+└──────────────────────┴──────────────────────────────┘
 
-VoltMail is an advanced cold email platform that combines Retrieval-Augmented Generation (RAG) with comprehensive analytics to create highly personalized outreach campaigns at scale.
+Getting Started
+Prerequisites
 
-##  Key Features
-
-- **AI-Powered Personalization**: Generate tailored emails using RAG with LLaMA3
-- **Lightning Fast Inference**: Groq integration for real-time email generation
-- **Smart Context Retrieval**: ChromaDB vector store with Cohere embeddings
-- **Campaign Management**: Create and track multiple outreach campaigns
-- **Comprehensive Analytics**: Track opens, replies, and engagement metrics
-- **Multi-Channel Outreach**: Supports email and LinkedIn integration
-
-##  Technology Stack
-
-**Backend**:
-- Node.js + Express.js
-- MongoDB (Data persistence)
-- Groq API (LLaMA3 inference)
-- Cohere (Embeddings)
-
-**Frontend**:
-- Streamlit (Dashboard)
-- Plotly (Visualizations)
-
-**AI/ML**:
-- LangChain (RAG orchestration)
-- ChromaDB (Vector storage)
-- Custom prompt engineering
+Docker & Docker Compose
+A Groq API key
+A Cohere API key
+A MongoDB connection string (local or Atlas)
 
 
-##  Installation
+Installation (Docker — Recommended)
+1. Clone the repository
+bashgit clone https://github.com/yourusername/voltmail.git
+cd voltmail
+2. Configure environment variables
+bashcp .env.example .env
+Open .env and fill in your credentials:
+env# API Keys
+GROQ_API_KEY=your_groq_api_key
+COHERE_API_KEY=your_cohere_api_key
 
-### Prerequisites
-- Node.js v18+
-- Python 3.10+
-- MongoDB (local or Atlas)
-- Groq API key
-- Cohere API key
+# Database
+MONGODB_URI=mongodb://localhost:27017/voltmail
 
-### Setup Instructions
+# App
+PORT=5000
+3. Build and start all services
+bashdocker compose up --build
+This will spin up:
+ServiceURLBackend APIhttp://localhost:5000Frontend Dashboardhttp://localhost:8501
+4. Initialize the vector store (first run only)
+bashdocker compose exec frontend python -m scripts.init_vectorstore
+5. Stop all services
+bashdocker compose down
 
-1. **Clone repository**
-   ```bash
-   git clone https://github.com/yourusername/voltmail.git
-   cd voltmail
-Backend setup
+Manual Installation (Without Docker)
+<details>
+<summary>Click to expand manual setup instructions</summary>
+Prerequisites
 
-bash
-cd backend
+Node.js v18+
+Python 3.10+
+MongoDB (local or Atlas)
+
+Backend
+bashcd backend
 npm install
-cp ../.env.example .env
-# Edit .env with your credentials
-Frontend setup
-
-bash
-cd ../frontend
-python -m venv venv
-source venv/bin/activate  # Windows: venv\Scripts\activate
-pip install -r ../requirements.txt
-Initialize vectorstore
-
-bash
-python -m scripts.init_vectorstore
- Running the Application
-Start backend service
-
-bash
-cd backend
+cp ../.env.example .env   # edit with your credentials
 npm start
-# API will run on http://localhost:5000
-Launch frontend dashboard
-
-bash
-cd ../frontend
+# API runs at http://localhost:5000
+Frontend
+bashcd frontend
+python -m venv venv
+source venv/bin/activate        # Windows: venv\Scripts\activate
+pip install -r ../requirements.txt
 streamlit run app.py
-# UI will open at http://localhost:8501
-📊 Analytics Metrics Tracked
-Open rates (via pixel tracking)
+# Dashboard opens at http://localhost:8501
+Initialize Vector Store
+bashpython -m scripts.init_vectorstore
+</details>
 
+Analytics
+VoltMail tracks the following engagement metrics out of the box:
+
+Open rates — via pixel tracking
+Reply rates — monitored per campaign
+Click-through rates — link engagement tracking
+Campaign comparison — side-by-side performance views
+Timeline analytics — trends over time with Plotly visualizations
+
+
+Project Structure
+voltmail/
+├── backend/              # Node.js + Express API
+│   ├── routes/
+│   ├── models/
+│   └── server.js
+├── frontend/             # Streamlit dashboard
+│   ├── app.py
+│   └── scripts/
+│       └── init_vectorstore.py
+├── docker-compose.yml
+├── .env.example
+└── requirements.txt
+
+Contributing
+Contributions are welcome! Please open an issue first to discuss any changes you'd like to make, then submit a pull request.
+
+Fork the repository
+Create a feature branch: git checkout -b feature/my-feature
+Commit your changes: git commit -m 'Add my feature'
+Push to the branch: git push origin feature/my-feature
+Open a pull request
+
+
+License
+This project is licensed under the MIT License.
